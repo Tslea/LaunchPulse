@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{page_title}}</title>
+<meta name="description" content="{{meta_description}}">
+<link rel="canonical" href="{{canonical_url}}">
+<meta property="og:title" content="{{page_title}}">
+<meta property="og:description" content="{{meta_description}}">
+<meta property="og:image" content="{{og_image}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{canonical_url}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{page_title}}">
+<meta name="twitter:description" content="{{meta_description}}">
+<meta name="twitter:image" content="{{og_image}}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{#faq}}
+    {
+      "@type": "Question",
+      "name": "{{question}}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{answer}}"
+      }
+    }{{comma}}
+    {{/faq}}
+  ]
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--accent:{{brand_color}};
+--accent-hover:color-mix(in srgb,{{brand_color}} 85%,#000);
+--bg:#FAFAFA;
+--bg-alt:#F0F0F5;
+--text:#1A1A2E;
+--text-secondary:#4A4A68;
+--max-w:680px;
+--section-py:clamp(60px,10vw,120px);
+--radius:8px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);
+-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent);text-decoration:none}
+
+/* Layout */
+.section{padding:var(--section-py) 20px}
+.section--alt{background:var(--bg-alt)}
+.container{max-width:var(--max-w);margin:0 auto}
+
+/* Typography */
+h1{font-size:clamp(28px,5vw,48px);line-height:1.15;font-weight:800;letter-spacing:-0.02em}
+h2{font-size:clamp(24px,4vw,36px);line-height:1.2;font-weight:700;margin-bottom:16px;letter-spacing:-0.01em}
+h3{font-size:clamp(18px,3vw,22px);font-weight:600;margin-bottom:8px}
+p{margin-bottom:16px;color:var(--text-secondary)}
+
+/* Hero */
+.hero{padding:clamp(80px,15vw,140px) 20px var(--section-py);text-align:center}
+.hero h1{margin-bottom:16px;color:var(--text)}
+.hero p{font-size:clamp(16px,2.5vw,20px);max-width:540px;margin:0 auto 32px}
+
+/* CTA Button */
+.cta-btn{
+display:inline-flex;align-items:center;justify-content:center;
+background:var(--accent);color:#fff;
+font-size:18px;font-weight:700;
+padding:16px 32px;border-radius:var(--radius);border:none;cursor:pointer;
+min-height:56px;width:100%;max-width:360px;
+box-shadow:0 4px 14px rgba(0,0,0,0.1);
+transition:background 0.2s,transform 0.15s;
+text-decoration:none;
+}
+.cta-btn:hover,.cta-btn:active{background:var(--accent-hover);transform:translateY(-1px)}
+.cta-subtext{font-size:14px;color:var(--text-secondary);margin-top:10px;text-align:center}
+
+/* Problem bullets */
+.problem-bullets{list-style:none;padding:0;margin:24px 0 0}
+.problem-bullets li{
+padding:12px 0 12px 32px;position:relative;
+font-size:17px;color:var(--text);border-bottom:1px solid #E8E8F0;
+}
+.problem-bullets li::before{content:"✕";position:absolute;left:0;color:var(--accent);font-weight:700;font-size:18px}
+
+/* Solution features */
+.features{display:grid;gap:20px;margin-top:28px}
+.feature{display:flex;align-items:flex-start;gap:14px}
+.feature-icon{font-size:28px;flex-shrink:0;line-height:1}
+.feature-text{font-size:16px;color:var(--text)}
+
+/* Benefits grid */
+.benefits-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:28px}
+@media(min-width:600px){.benefits-grid{grid-template-columns:repeat(3,1fr)}}
+.benefit-card{text-align:center;padding:24px 16px}
+.benefit-icon{font-size:40px;margin-bottom:12px}
+.benefit-card h3{margin-bottom:6px}
+.benefit-card p{font-size:15px;margin-bottom:0}
+
+/* Testimonials */
+.testimonials{display:grid;gap:20px;margin-top:28px}
+.testimonial{
+background:#fff;border-radius:var(--radius);padding:24px;
+box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.testimonial-quote{font-size:16px;font-style:italic;color:var(--text);margin-bottom:14px;line-height:1.5}
+.testimonial-quote::before{content:"\201C";font-size:24px;color:var(--accent);font-weight:700;margin-right:4px}
+.testimonial-author{font-weight:600;font-size:15px;color:var(--text)}
+.testimonial-role{font-size:14px;color:var(--text-secondary)}
+
+/* CTA section (mid + final) */
+.cta-section{text-align:center}
+.cta-section h2{margin-bottom:8px}
+.cta-section p{max-width:480px;margin:0 auto 24px}
+
+/* Steps */
+.steps{display:grid;gap:24px;margin-top:28px;counter-reset:step}
+.step{display:flex;gap:16px;align-items:flex-start}
+.step-number{
+flex-shrink:0;width:40px;height:40px;border-radius:50%;
+background:var(--accent);color:#fff;font-weight:700;font-size:18px;
+display:flex;align-items:center;justify-content:center;
+}
+.step-content h3{margin-bottom:4px}
+.step-content p{margin-bottom:0;font-size:15px}
+
+/* FAQ */
+.faq-list{margin-top:28px}
+.faq-item{border-bottom:1px solid #E8E8F0}
+.faq-item summary{
+cursor:pointer;padding:18px 0;font-weight:600;font-size:17px;color:var(--text);
+list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+.faq-item summary::after{content:"+";font-size:22px;color:var(--accent);font-weight:400;transition:transform 0.2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-answer{padding:0 0 18px;font-size:16px;color:var(--text-secondary);line-height:1.6}
+
+/* Email form */
+.email-form{display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto}
+@media(min-width:500px){.email-form{flex-direction:row}.email-form .cta-btn{width:auto;white-space:nowrap}}
+.email-input{
+flex:1;padding:14px 16px;font-size:16px;
+border:2px solid #E0E0E8;border-radius:var(--radius);
+background:#fff;color:var(--text);outline:none;
+min-height:48px;
+}
+.email-input:focus{border-color:var(--accent)}
+.email-input::placeholder{color:#999}
+.form-msg{text-align:center;margin-top:8px;font-size:14px;min-height:20px}
+.form-msg--ok{color:#22c55e}
+.form-msg--err{color:#ef4444}
+
+/* Urgency banner */
+.urgency{
+background:color-mix(in srgb,var(--accent) 8%,transparent);
+border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);
+border-radius:var(--radius);padding:12px 16px;margin-bottom:24px;
+text-align:center;font-size:15px;color:var(--text);font-weight:500;
+}
+
+/* Fade-in animation */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.5s ease,transform 0.5s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* Footer */
+.footer{padding:32px 20px;text-align:center;font-size:13px;color:var(--text-secondary)}
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<section class="hero section" id="hero">
+<div class="container">
+<h1 class="fade-in">{{headline}}</h1>
+<p class="fade-in">{{subheadline}}</p>
+<a href="#signup" class="cta-btn fade-in">{{cta_text}}</a>
+<div class="cta-subtext fade-in">{{cta_subtext}}</div>
+</div>
+</section>
+
+<!-- ========== PROBLEM ========== -->
+<section class="section section--alt" id="problem">
+<div class="container">
+<h2 class="fade-in">{{problem_title}}</h2>
+<p class="fade-in">{{problem_description}}</p>
+<ul class="problem-bullets fade-in">
+{{#problem_bullets}}
+<li>{{.}}</li>
+{{/problem_bullets}}
+</ul>
+</div>
+</section>
+
+<!-- ========== SOLUTION ========== -->
+<section class="section" id="solution">
+<div class="container">
+<h2 class="fade-in">{{solution_title}}</h2>
+<p class="fade-in">{{solution_description}}</p>
+<div class="features fade-in">
+{{#solution_features}}
+<div class="feature">
+<span class="feature-icon">{{icon}}</span>
+<span class="feature-text">{{text}}</span>
+</div>
+{{/solution_features}}
+</div>
+</div>
+</section>
+
+<!-- ========== BENEFITS ========== -->
+<section class="section section--alt" id="benefits">
+<div class="container">
+<h2 class="fade-in" style="text-align:center">Why {{brand_name}}?</h2>
+<div class="benefits-grid fade-in">
+{{#benefits}}
+<div class="benefit-card">
+<div class="benefit-icon">{{icon}}</div>
+<h3>{{title}}</h3>
+<p>{{description}}</p>
+</div>
+{{/benefits}}
+</div>
+</div>
+</section>
+
+<!-- ========== SOCIAL PROOF ========== -->
+<section class="section" id="proof">
+<div class="container">
+<h2 class="fade-in" style="text-align:center">What early users say</h2>
+<div class="testimonials fade-in">
+{{#testimonials}}
+<div class="testimonial">
+<div class="testimonial-quote">{{quote}}</div>
+<div class="testimonial-author">{{name}}</div>
+<div class="testimonial-role">{{role}}</div>
+</div>
+{{/testimonials}}
+</div>
+</div>
+</section>
+
+<!-- ========== CTA MID ========== -->
+<section class="section section--alt cta-section" id="cta-mid">
+<div class="container fade-in">
+<h2>Ready to start?</h2>
+<p>{{cta_subtext}}</p>
+<a href="#signup" class="cta-btn">{{cta_text}}</a>
+</div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="section" id="how-it-works">
+<div class="container">
+<h2 class="fade-in" style="text-align:center">How it works</h2>
+<div class="steps fade-in">
+{{#steps}}
+<div class="step">
+<div class="step-number">{{number}}</div>
+<div class="step-content">
+<h3>{{title}}</h3>
+<p>{{description}}</p>
+</div>
+</div>
+{{/steps}}
+</div>
+</div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="section section--alt" id="faq">
+<div class="container">
+<h2 class="fade-in" style="text-align:center">Frequently asked questions</h2>
+<div class="faq-list fade-in">
+{{#faq}}
+<details class="faq-item">
+<summary>{{question}}</summary>
+<div class="faq-answer">{{answer}}</div>
+</details>
+{{/faq}}
+</div>
+</div>
+</section>
+
+<!-- ========== CTA FINAL (with email form) ========== -->
+<section class="section cta-section" id="signup">
+<div class="container fade-in">
+<div class="urgency">{{urgency_text}}</div>
+<h2>{{headline}}</h2>
+<p>{{subheadline}}</p>
+<form class="email-form" id="email-form" novalidate>
+<input type="email" class="email-input" id="email-input" placeholder="Enter your email" required autocomplete="email" inputmode="email" aria-label="Email address">
+<button type="submit" class="cta-btn">{{cta_text}}</button>
+</form>
+<div class="form-msg" id="form-msg" aria-live="polite"></div>
+<div class="cta-subtext">{{cta_subtext}}</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">&copy; 2026 {{brand_name}}. All rights reserved.</div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ===== CONFIG (injected at render time) ===== */
+var CONFIG = {
+  ideaId: "{{idea_id}}",
+  apiBase: "{{api_base_url}}",
+  pixelId: "{{tiktok_pixel_id}}"
+};
+
+/* ===== UTM CAPTURE ===== */
+var params = new URLSearchParams(window.location.search);
+var utm = {
+  source: params.get("utm_source") || "",
+  medium: params.get("utm_medium") || "",
+  campaign: params.get("utm_campaign") || ""
+};
+var variant = params.get("v") || "A";
+
+/* ===== SCROLL DEPTH TRACKING ===== */
+var scrollThresholds = [25, 50, 75, 100];
+var scrollFired = {};
+function getScrollPercent() {
+  var h = document.documentElement;
+  var b = document.body;
+  var st = window.pageYOffset || h.scrollTop || b.scrollTop || 0;
+  var sh = Math.max(b.scrollHeight, h.scrollHeight) - Math.max(b.clientHeight, h.clientHeight);
+  return sh > 0 ? Math.round((st / sh) * 100) : 0;
+}
+window.addEventListener("scroll", function() {
+  var pct = getScrollPercent();
+  for (var i = 0; i < scrollThresholds.length; i++) {
+    var t = scrollThresholds[i];
+    if (pct >= t && !scrollFired[t]) {
+      scrollFired[t] = true;
+      trackEvent("scroll_depth", { depth: t, variant: variant });
+    }
+  }
+}, { passive: true });
+
+/* ===== EVENT TRACKING ===== */
+function trackEvent(name, data) {
+  if (typeof ttq !== "undefined") {
+    try { ttq.track(name, data); } catch(e) {}
+  }
+}
+
+/* ===== PAGE VIEW ===== */
+trackEvent("PageView", { variant: variant });
+
+/* ===== CTA CLICK TRACKING ===== */
+var ctaBtns = document.querySelectorAll(".cta-btn[href]");
+for (var i = 0; i < ctaBtns.length; i++) {
+  ctaBtns[i].addEventListener("click", function() {
+    trackEvent("ClickButton", { variant: variant });
+  });
+}
+
+/* ===== EMAIL FORM ===== */
+var form = document.getElementById("email-form");
+var emailInput = document.getElementById("email-input");
+var msgEl = document.getElementById("form-msg");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  var email = emailInput.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msgEl.className = "form-msg form-msg--err";
+    msgEl.textContent = "Please enter a valid email address.";
+    return;
+  }
+  msgEl.className = "form-msg";
+  msgEl.textContent = "Submitting...";
+  var payload = {
+    email: email,
+    idea_id: CONFIG.ideaId,
+    utm_source: utm.source,
+    utm_medium: utm.medium,
+    utm_campaign: utm.campaign,
+    referrer: document.referrer || "",
+    variant: variant
+  };
+  fetch(CONFIG.apiBase + "/api/v1/leads", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function(res) {
+    if (res.ok) {
+      msgEl.className = "form-msg form-msg--ok";
+      msgEl.textContent = "You're in! We'll be in touch soon.";
+      emailInput.value = "";
+      trackEvent("CompleteRegistration", { variant: variant });
+    } else {
+      throw new Error("Server error");
+    }
+  }).catch(function() {
+    /* Fallback: save to localStorage and retry later */
+    try {
+      var queue = JSON.parse(localStorage.getItem("lp_lead_queue") || "[]");
+      queue.push(payload);
+      localStorage.setItem("lp_lead_queue", JSON.stringify(queue));
+    } catch(e) {}
+    msgEl.className = "form-msg form-msg--ok";
+    msgEl.textContent = "You're in! We'll be in touch soon.";
+    emailInput.value = "";
+  });
+});
+
+/* ===== RETRY QUEUED LEADS ===== */
+(function retryQueue() {
+  try {
+    var queue = JSON.parse(localStorage.getItem("lp_lead_queue") || "[]");
+    if (queue.length === 0) return;
+    var item = queue[0];
+    fetch(CONFIG.apiBase + "/api/v1/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item)
+    }).then(function(res) {
+      if (res.ok) {
+        queue.shift();
+        localStorage.setItem("lp_lead_queue", JSON.stringify(queue));
+        if (queue.length > 0) retryQueue();
+      }
+    }).catch(function() {});
+  } catch(e) {}
+})();
+
+/* ===== FADE-IN ON SCROLL (Intersection Observer) ===== */
+if ("IntersectionObserver" in window) {
+  var obs = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add("visible");
+        obs.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.1 });
+  var fadeEls = document.querySelectorAll(".fade-in");
+  for (var j = 0; j < fadeEls.length; j++) {
+    obs.observe(fadeEls[j]);
+  }
+}
+
+/* ===== TIKTOK PIXEL ===== */
+if (CONFIG.pixelId) {
+  !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];
+  ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
+  ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
+  for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
+  ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};
+  ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";
+  ttq._i=ttq._i||{};ttq._i[e]=[];ttq._i[e]._u=i;ttq._t=ttq._t||{};ttq._t[e]=+new Date;
+  ttq._o=ttq._o||{};ttq._o[e]=n||{};
+  var o=d.createElement("script");o.type="text/javascript";o.async=true;o.src=i+"?sdkid="+e+"&lib="+t;
+  var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+  ttq.load(CONFIG.pixelId);ttq.page()}(window,document,"ttq");
+}
+
+})();
+</script>
+</body>
+</html>
